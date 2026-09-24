@@ -278,13 +278,13 @@
           $('#saveNotify').css('opacity', 1).animate({opacity: 0}, 1000, 'linear');
           Engine._lastNotify = Date.now();
         }
-        localStorage.gameState = JSON.stringify(State);
+        localStorage.sandboxGameState = JSON.stringify(State);
       }
     },
 
     loadGame: function() {
       try {
-        var savedState = JSON.parse(localStorage.gameState);
+        var savedState = JSON.parse(localStorage.sandboxGameState);
         if(savedState) {
           State = savedState;
           $SM.updateOldState();
@@ -372,7 +372,7 @@
     },
 
     generateExport64: function(){
-      var string64 = Base64.encode(localStorage.gameState);
+      var string64 = Base64.encode(localStorage.sandboxGameState);
       string64 = string64.replace(/\s/g, '');
       string64 = string64.replace(/\./g, '');
       string64 = string64.replace(/\n/g, '');
@@ -393,7 +393,7 @@
       string64 = string64.replace(/\./g, '');
       string64 = string64.replace(/\n/g, '');
       var decodedSave = Base64.decode(string64);
-      localStorage.gameState = decodedSave;
+      localStorage.sandboxGameState = decodedSave;
       location.reload();
     },
 
@@ -429,7 +429,8 @@
       if(typeof Storage != 'undefined' && localStorage) {
         var prestige = Prestige.get();
         window.State = {};
-        localStorage.clear();
+        // sandbox: only wipe this build's save, not the main game sharing this domain
+        localStorage.removeItem('sandboxGameState');
         Prestige.set(prestige);
       }
       if(!noReload) {
