@@ -156,7 +156,7 @@ var Mafia = {
 		$.Dispatch('stateUpdate').subscribe(Mafia.handleStateUpdates);
 		if(!Mafia.state().phase) Mafia.state().phase = 'day';
 		Mafia.applyPhase();
-		Mafia.schedulePhase();
+		Mafia.schedulePhase(true);
 		Mafia.updateCouncilButton();
 	},
 
@@ -267,10 +267,19 @@ var Mafia = {
 		return !!st && st.phase === 'night';
 	},
 
-	schedulePhase: function() {
+	// starts a fresh phase, or with `resume` picks up the saved one, so reloading can't reset the clock
+	schedulePhase: function(resume) {
 		clearTimeout(Mafia._phaseTimer);
-		var length = Mafia.isNight() ? Mafia._NIGHT : Mafia._DAYLIGHT;
-		Mafia._phaseTimer = Engine.setTimeout(Mafia.advancePhase, length);
+		var st = Mafia.state();
+		var now = Date.now();
+		if(!resume || typeof st.phaseEndsAt != 'number') {
+			var length = Mafia.isNight() ? Mafia._NIGHT : Mafia._DAYLIGHT;
+			if(Engine.options.doubleTime) length /= 2;
+			st.phaseEndsAt = now + length;
+			Mafia.save();
+		}
+		// the end time is already in real ms, so skip hyper mode's halving here
+		Mafia._phaseTimer = Engine.setTimeout(Mafia.advancePhase, Math.max(0, st.phaseEndsAt - now), true);
 	},
 
 	advancePhase: function() {
