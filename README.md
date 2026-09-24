@@ -1,3 +1,5 @@
+> **Sandbox build of _The Night Council_, for playtesting only.** It adds a **mod menu.** (bottom menu bar) to change cooldowns, day and night length, murderer odds and evidence odds, plus cheats (next phase, plant or reveal the murderer, fill huts). The submitted game is [NICOH-YAY/adarkroom](https://github.com/NICOH-YAY/adarkroom) ([play](https://nicoh-yay.github.io/adarkroom/)). [Play the sandbox](https://nicoh-yay.github.io/adarkroom-sandbox/).
+
 > **This fork is a mod: _The Night Council_.** A murderer hides among the villagers, one of them dies each night, and you have to find the killer from testimony and alibis. All button cooldowns are also halved.
 > [Play the mod](https://nicoh-yay.github.io/adarkroom/) · [Rules, evidence map and acceptance trace](MOD.md) · original game by [doublespeak games](https://github.com/doublespeakgames/adarkroom), MPL 2.0.
 

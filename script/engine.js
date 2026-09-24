@@ -197,7 +197,7 @@
       $('<span>')
         .addClass('menuBtn')
         .text(_('github.'))
-        .click(function() { window.open('https://github.com/NICOH-YAY/adarkroom'); })
+        .click(function() { window.open('https://github.com/NICOH-YAY/adarkroom-sandbox'); })
         .appendTo(menu);
 
       // Register keypress handlers
